@@ -11,12 +11,11 @@ export const authService = {
     }).then(async (response) => {
       if (!response.ok) throw new Error("Usuário ou senha inválidos!")
       const body = response.body
-      console.log(body)
       TokenService.set(body.data.access_token)
     })
   },
 
-  async getSession(ctx) {
+  async getSession(ctx = null) {
     const token = TokenService.get(ctx)
     return HttpClient(url + "/session", {
       method: "GET",
